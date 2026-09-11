@@ -91,14 +91,13 @@ export const films = [
       "The action becomes a way to explore allegiance: who you serve, what you believe, and what it costs to change sides. This festival pairs the film with Vovinam as a doorway into Vietnamese screen combat, rather than a claim that every technique is a historical demonstration.",
       "Watch for the moments when movement changes a relationship. Who is protecting whom, and how does that shift?",
     ],
-    trailer:
-      "https://tv.apple.com/us/clip/the-rebel/umc.cmc.4jhgbuxv2uejlt8r97g0uluqq?targetId=umc.cmc.6zkvq0xvguupz9mn560re1b9m&targetType=Movie",
-    trailerSource: "Apple TV · Official trailer",
+    trailer: "https://www.youtube.com/watch?v=2XnojnbUzbE",
+    trailerSource: "Chánh Phương Films · YouTube",
     source:
       "https://danaff.vn/phim-du-thi/dien-anh-viet-nam-40-nam-doi-moi-id13/dong-mau-anh-hung-id259",
     sourceName: "Da Nang Asian Film Festival · Film context",
     credit:
-      "Film imagery sourced from Da Nang Asian Film Festival. Trailer via Apple TV / Lionsgate.",
+      "Film imagery sourced from Da Nang Asian Film Festival. Trailer via Chánh Phương Films.",
     creditUrl:
       "https://danaff.vn/phim-du-thi/dien-anh-viet-nam-40-nam-doi-moi-id13/dong-mau-anh-hung-id259",
   },

@@ -1,6 +1,6 @@
-import { films } from "./films.js";
-import { questions, matchFilm } from "./quiz.js";
-import { images } from "./assets/images/manifest.js";
+import { films } from "./films.js?v=4";
+import { questions, matchFilm } from "./quiz.js?v=4";
+import { images } from "./assets/images/manifest.js?v=4";
 
 /* Build a responsive <img> from the WebP variants listed in the manifest. */
 function picture(name, sizes, attrs = "") {
@@ -21,7 +21,7 @@ let matchedIndex = null;
 document.querySelector("#film-panels").innerHTML = films
   .map(
     (film, index) => `
-  <button class="film-panel ${index === 3 ? "is-featured" : ""}" data-film="${index}" style="--accent:${film.accent};--position:${film.position}" aria-label="Explore ${film.title}, ${film.place}">
+  <button class="film-panel ${index === 0 ? "is-featured" : ""}" data-film="${index}" style="--accent:${film.accent};--position:${film.position}" aria-label="Explore ${film.title}, ${film.place}">
     ${picture(film.image, "(max-width: 760px) 90vw, 28vw", `alt="${film.alt}" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}`)}
     <span class="panel-info"><small>${film.place}</small><strong>${film.title}</strong><span class="panel-arrow" aria-hidden="true">↗</span></span>
   </button>`,
@@ -31,7 +31,7 @@ document.querySelector("#film-panels").innerHTML = films
 document.querySelector("#hero-film-tabs").innerHTML = films
   .map(
     (film, index) =>
-      `<button data-featured="${index}" aria-pressed="${index === 3}" aria-label="${film.place}: feature ${film.title}">${film.place}</button>`,
+      `<button data-featured="${index}" aria-pressed="${index === 0}" aria-label="${film.place}: feature ${film.title}">${film.place}</button>`,
   )
   .join("");
 
@@ -53,6 +53,43 @@ document.querySelector("#credits-list").innerHTML = films
   <section class="credit-item"><h3>${film.title} (${film.year})</h3><p>${film.credit}</p><a href="${film.creditUrl}" target="_blank" rel="noopener noreferrer">Image source ↗</a><a href="${film.source}" target="_blank" rel="noopener noreferrer">Story source ↗</a><a href="${film.trailer}" target="_blank" rel="noopener noreferrer">Official trailer ↗</a></section>`,
   )
   .join("");
+
+const reducedMotion = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* Mobile hero strip: tabs scroll to a film, and scrolling updates the tabs. */
+const filmPanels = document.querySelector("#film-panels");
+function setFeatured(selected) {
+  filmPanels
+    .querySelectorAll(".film-panel")
+    .forEach((panel, index) =>
+      panel.classList.toggle("is-featured", index === selected),
+    );
+  document
+    .querySelectorAll("[data-featured]")
+    .forEach((tab, index) =>
+      tab.setAttribute("aria-pressed", String(index === selected)),
+    );
+}
+let stripTimer;
+filmPanels.addEventListener("scroll", () => {
+  clearTimeout(stripTimer);
+  stripTimer = setTimeout(() => {
+    const origin =
+      filmPanels.getBoundingClientRect().left +
+      parseFloat(getComputedStyle(filmPanels).paddingLeft);
+    let nearest = 0;
+    let distance = Infinity;
+    filmPanels.querySelectorAll(".film-panel").forEach((panel, index) => {
+      const gap = Math.abs(panel.getBoundingClientRect().left - origin);
+      if (gap < distance) {
+        distance = gap;
+        nearest = index;
+      }
+    });
+    setFeatured(nearest);
+  }, 80);
+});
 
 function lockPage() {
   document.body.classList.add("dialog-open");
@@ -150,16 +187,16 @@ document.addEventListener("click", (event) => {
   if (button.hasAttribute("data-start")) startQuiz();
   else if (button.hasAttribute("data-featured")) {
     const selected = Number(button.dataset.featured);
-    document
-      .querySelectorAll(".film-panel")
-      .forEach((panel, index) =>
-        panel.classList.toggle("is-featured", index === selected),
-      );
-    document
-      .querySelectorAll("[data-featured]")
-      .forEach((tab, index) =>
-        tab.setAttribute("aria-pressed", String(index === selected)),
-      );
+    const panel = filmPanels.querySelectorAll(".film-panel")[selected];
+    const origin =
+      filmPanels.getBoundingClientRect().left +
+      parseFloat(getComputedStyle(filmPanels).paddingLeft);
+    filmPanels.scrollTo({
+      left:
+        filmPanels.scrollLeft + panel.getBoundingClientRect().left - origin,
+      behavior: reducedMotion() ? "instant" : "smooth",
+    });
+    setFeatured(selected);
   } else if (button.hasAttribute("data-film")) {
     renderFilm(Number(button.dataset.film));
     showStage();
@@ -184,9 +221,7 @@ document.addEventListener("click", (event) => {
     stage
       .querySelector("#film-story")
       .scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
+        behavior: reducedMotion() ? "instant" : "smooth",
         block: "start",
       });
     stage.querySelector("#story-title").focus({ preventScroll: true });

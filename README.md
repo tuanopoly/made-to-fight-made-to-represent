@@ -43,12 +43,12 @@ Set `TEST_URL` to run the same checks against the published site. Browser screen
 
 ## Publish
 
-This is a static GitHub Pages site. Publish the root of the `main` branch; `.nojekyll` preserves the site as authored. All internal asset URLs are relative so project-site paths work correctly. No credentials or server configuration are required in the website.
+This is a static GitHub Pages site. When deploying changes, bump the `?v=` query on the stylesheet, script, and module imports so cached copies refresh together. Publish the root of the `main` branch; `.nojekyll` preserves the site as authored. All internal asset URLs are relative so project-site paths work correctly. No credentials or server configuration are required in the website.
 
 ## Sources
 
 The five featured films are Hero (2002), Ip Man (2008), The Rebel (2007), The Protector (2005), and 13 Assassins (2010). Original release years are retained even where US trailer or distribution dates differ.
 
-Film imagery is credited in the website and in [the asset source record](docs/film-assets-research.md). Cultural stories link directly to film-institute, festival, studio, or distributor sources. Trailers open official YouTube uploads or Apple TV in a separate tab. The site does not embed or host video.
+Film imagery is credited in the website and in [the asset source record](docs/film-assets-research.md). Cultural stories link directly to film-institute, festival, studio, or distributor sources. Trailers open official studio or distributor YouTube uploads in a separate tab. The site does not embed or host video.
 
 This is an independent coursework/portfolio concept. Festival dates and venue are not scheduled. Film imagery belongs to its respective rights holders; attribution is not a claim of ownership or an open reuse license. Anton and Manrope are distributed under their included SIL Open Font Licenses.
