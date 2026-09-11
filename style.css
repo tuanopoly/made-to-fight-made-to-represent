@@ -110,6 +110,21 @@ a:hover {
   background: var(--orange);
   color: var(--canvas);
 }
+.arrow {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.12em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+a .arrow {
+  margin-left: 0.15em;
+}
 .skip-link {
   position: fixed;
   left: 16px;
@@ -662,7 +677,7 @@ dialog::backdrop {
   height: 45px;
   display: grid;
   place-items: center;
-  font: 300 29px/1 var(--body);
+  font-size: 20px;
   background: none;
   border: 1px solid var(--control);
   flex-shrink: 0;
@@ -1025,13 +1040,13 @@ dialog::backdrop {
 .screening summary::-webkit-details-marker {
   display: none;
 }
-.screening summary:after {
-  content: "+";
-  font-size: 25px;
+.screening summary .arrow {
+  font-size: 22px;
   color: var(--accent);
+  transition: transform 0.3s;
 }
-.screening[open] summary:after {
-  content: "−";
+.screening[open] summary .arrow {
+  transform: rotate(45deg);
 }
 .screening p {
   font-size: 12px;
@@ -1448,7 +1463,7 @@ dialog::backdrop {
   .close-button {
     width: 38px;
     height: 38px;
-    font-size: 25px;
+    font-size: 18px;
   }
   .quiz-layout {
     display: block;

@@ -30,10 +30,18 @@
       type="font/ttf"
       crossorigin
     />
-    <link rel="stylesheet" href="./style.css?v=7" />
-    <script type="module" src="./app.js?v=7"></script>
+    <link rel="stylesheet" href="./style.css?v=8" />
+    <script type="module" src="./app.js?v=8"></script>
   </head>
   <body>
+    <svg hidden aria-hidden="true" focusable="false">
+      <symbol id="i-ne" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></symbol>
+      <symbol id="i-right" viewBox="0 0 24 24"><path d="M4 12h16m-7-7 7 7-7 7" /></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16m-7-7 7 7 7-7" /></symbol>
+      <symbol id="i-left" viewBox="0 0 24 24"><path d="M20 12H4m7-7-7 7 7 7" /></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" /></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+    </svg>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <a
@@ -55,7 +63,7 @@
         ><a href="#about">The idea</a>
       </nav>
       <button class="header-cta" data-start>
-        Find your film <span aria-hidden="true">↗</span>
+        Find your film <span aria-hidden="true"><svg class="arrow" aria-hidden="true" focusable="false"><use href="#i-ne"></use></svg></span>
       </button>
     </header>
 
@@ -87,7 +95,7 @@
             >
           </p>
           <button class="button primary" data-start>
-            Find your film <span aria-hidden="true">↗</span>
+            Find your film <span aria-hidden="true"><svg class="arrow" aria-hidden="true" focusable="false"><use href="#i-ne"></use></svg></span>
           </button>
           <span class="quiz-note"
             >3 questions <span>·</span> About two minutes</span
@@ -98,7 +106,7 @@
             >China <b aria-hidden="true">·</b> Hong Kong <b aria-hidden="true">·</b> Vietnam
             <b aria-hidden="true">·</b> Thailand <b aria-hidden="true">·</b> Japan</span
           ><a href="#films" aria-label="Scroll to the films"
-            >Explore below <span aria-hidden="true">↓</span></a
+            >Explore below <span aria-hidden="true"><svg class="arrow" aria-hidden="true" focusable="false"><use href="#i-down"></use></svg></span></a
           >
         </div>
       </section>
@@ -146,7 +154,7 @@
               ideas behind the action.
             </p>
             <button class="text-button" data-start>
-              Find the film that fits you <span aria-hidden="true">↗</span>
+              Find the film that fits you <span aria-hidden="true"><svg class="arrow" aria-hidden="true" focusable="false"><use href="#i-ne"></use></svg></span>
             </button>
           </div>
         </div>
@@ -156,7 +164,7 @@
         <span class="eyebrow">Your next film starts here</span>
         <h2 id="closing-title">WHAT'S <em>YOUR</em><br />FIGHTING STYLE?</h2>
         <button class="button primary" data-start>
-          Take the quiz <span aria-hidden="true">↗</span>
+          Take the quiz <span aria-hidden="true"><svg class="arrow" aria-hidden="true" focusable="false"><use href="#i-ne"></use></svg></span>
         </button>
       </section>
     </main>
@@ -165,7 +173,7 @@
       <span>MADE TO FIGHT, MADE TO REPRESENT</span
       ><span>A coursework festival concept</span
       ><button class="footer-link" id="credits-open">
-        Sources & credits <span aria-hidden="true">↗</span>
+        Sources & credits <span aria-hidden="true"><svg class="arrow" aria-hidden="true" focusable="false"><use href="#i-ne"></use></svg></span>
       </button>
     </footer>
     <dialog
@@ -183,7 +191,7 @@
           data-close-credits
           aria-label="Close sources and credits"
         >
-          ×
+          <svg class="arrow" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg>
         </button>
       </div>
       <p>
