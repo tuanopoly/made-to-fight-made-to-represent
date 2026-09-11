@@ -23,7 +23,7 @@ document.querySelector("#film-panels").innerHTML = films
 document.querySelector("#hero-film-tabs").innerHTML = films
   .map(
     (film, index) =>
-      `<button data-featured="${index}" aria-pressed="${index === 3}" aria-label="Feature ${film.title}">${film.place}</button>`,
+      `<button data-featured="${index}" aria-pressed="${index === 3}" aria-label="${film.place}: feature ${film.title}">${film.place}</button>`,
   )
   .join("");
 
@@ -33,7 +33,7 @@ document.querySelector("#film-grid").innerHTML = films
   <article class="film-card" style="--accent:${film.accent}">
     <button class="film-card-button" data-film="${index}" aria-label="Explore ${film.title}, ${film.year}">
       <span class="card-image"><img src="${imagePath(film.poster)}" alt="${film.title === "13 Assassins" ? "A sword fight in a village street in 13 Assassins. Photo courtesy of Magnet Releasing." : `${film.title} promotional poster.`}" loading="lazy"><span class="card-action">Explore the film <span aria-hidden="true">↗</span></span></span>
-      <span class="card-meta"><span>${film.place}</span><span>${film.year}</span></span><h3>${film.title}</h3><p class="card-style">${film.styleDetail || film.style}</p>
+      <span class="card-meta"><span>${film.place}</span><span>${film.year}</span></span><h3>${film.title}</h3><p class="card-style">${film.styleDetail || film.style} <span>· ${film.theme}</span></p><p class="card-hook">${film.hook}</p>
     </button>
   </article>`,
   )
@@ -69,6 +69,7 @@ function startQuiz() {
   renderQuestion();
   showStage();
   focusHeading();
+  setHash("#quiz");
 }
 
 function renderQuestion() {
@@ -115,6 +116,7 @@ function renderQuestion() {
 function renderFilm(index, isResult = false) {
   mode = isResult ? "result" : "film";
   const film = films[index];
+  setHash(`#${isResult ? "result" : "film"}/${film.id}`);
   dialog.setAttribute(
     "aria-label",
     isResult ? `Your film match: ${film.title}` : `Explore ${film.title}`,
@@ -124,7 +126,7 @@ function renderFilm(index, isResult = false) {
       <div class="experience-bar"><button class="back-button" data-${isResult ? "edit-answers" : "close"}><span aria-hidden="true">←</span> ${isResult ? "Change my answers" : "Back to festival"}</button><span class="eyebrow">${isResult ? "Your film match" : "The selection"} · ${film.place}</span><button class="close-button" data-close aria-label="Close film details">×</button></div>
       <div class="film-reveal"><img class="film-reveal-image" src="${imagePath(film.image)}" alt="${film.alt}"><div class="reveal-copy">
         <span class="eyebrow">${isResult ? "Your fighting style is" : film.theme}</span><h2 tabindex="-1">${isResult ? film.style : film.title}</h2>
-        <p class="reveal-film-title">${isResult ? film.title : film.styleDetail || film.style} <span>${film.year}</span></p><p class="film-original">${film.original} &nbsp; / &nbsp; ${film.place}</p>
+        <p class="reveal-film-title">${isResult ? film.title : film.styleDetail || film.style} <span>${film.year}</span></p><p class="film-original"><span lang="${film.originalLang}">${film.original}</span> &nbsp; / &nbsp; ${film.place}</p>
         <p class="reveal-description">${film.result}</p><div class="traits" aria-label="Themes">${film.traits.map((trait) => `<span>${trait}</span>`).join("")}</div>
         <div class="reveal-actions"><a class="button primary" href="${film.trailer}" target="_blank" rel="noopener noreferrer" aria-label="Preview ${film.title} — official trailer, opens in a new tab">Preview film <span aria-hidden="true">↗</span></a><button class="text-button" data-story>Explore the combat style <span aria-hidden="true">↓</span></button></div><p class="trailer-source">Official trailer · ${film.trailerSource} · Opens in a new tab</p>
       </div></div>
@@ -164,10 +166,12 @@ document.addEventListener("click", (event) => {
       focusHeading();
     }
   } else if (button.hasAttribute("data-edit-answers")) {
-    questionIndex = 2;
+    if (answers[0] === null) return startQuiz();
+    questionIndex = 0;
     renderQuestion();
     dialog.scrollTo(0, 0);
     focusHeading();
+    setHash("#quiz");
   } else if (button.hasAttribute("data-story")) {
     stage
       .querySelector("#film-story")
@@ -188,7 +192,42 @@ document.addEventListener("click", (event) => {
   } else if (button.hasAttribute("data-close-credits")) credits.close();
 });
 
-dialog.addEventListener("close", unlockPage);
+/* Hash routing: #quiz, #film/<id>, #result/<id>. Closing the stage clears the hash. */
+let writingHash = false;
+function setHash(hash) {
+  if (location.hash === hash) return;
+  writingHash = true;
+  location.hash = hash;
+}
+function route() {
+  const [kind, id] = location.hash.slice(1).split("/");
+  const index = films.findIndex((film) => film.id === id);
+  if (kind === "quiz") {
+    if (mode !== "quiz" || !dialog.open) startQuiz();
+  } else if (kind === "film" && index > -1) {
+    renderFilm(index);
+    showStage();
+    focusHeading();
+  } else if (kind === "result" && index > -1) {
+    matchedIndex = index;
+    renderFilm(index, true);
+    showStage();
+    focusHeading();
+  } else if (dialog.open) dialog.close();
+}
+window.addEventListener("hashchange", () => {
+  if (writingHash) {
+    writingHash = false;
+    return;
+  }
+  route();
+});
+dialog.addEventListener("close", () => {
+  unlockPage();
+  if (/^#(quiz|film|result)/.test(location.hash))
+    history.replaceState(null, "", location.pathname + location.search);
+});
+route();
 credits.addEventListener("close", unlockPage);
 credits.addEventListener("click", (event) => {
   if (event.target === credits) {

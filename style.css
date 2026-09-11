@@ -24,6 +24,7 @@
   --orange: #ef714b;
   --gold: #d7ba83;
   --line: #ffffff25;
+  --control: #ffffff5c;
   --display: Anton, Impact, sans-serif;
   --body: Manrope, Arial, sans-serif;
   color-scheme: dark;
@@ -124,7 +125,7 @@ a:hover {
 }
 .eyebrow {
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 2px;
 }
@@ -157,7 +158,7 @@ a:hover {
   color: var(--orange);
 }
 .brand span {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.45;
   letter-spacing: 1px;
   font-weight: 700;
@@ -173,14 +174,14 @@ a:hover {
   color: var(--orange);
 }
 .site-header nav span {
-  font-size: 9px;
+  font-size: 11px;
   vertical-align: super;
   color: var(--orange);
   margin-left: 3px;
 }
 .header-cta {
   background: none;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control);
   padding: 11px 18px;
   display: flex;
   gap: 22px;
@@ -204,13 +205,13 @@ a:hover {
   padding: 30px 0 24px;
 }
 .hero-edition {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 2px;
 }
 .hero h1 {
-  font: 400 clamp(70px, 9.55vw, 160px) / 1.04 var(--display);
+  font: 400 clamp(4.375rem, 9.55vw, 10rem) / 1.04 var(--display);
   letter-spacing: -0.01em;
   margin-bottom: 28px;
 }
@@ -279,12 +280,13 @@ h2 em {
   display: block;
   text-transform: uppercase;
   letter-spacing: 1.7px;
-  font-size: 9px;
+  font-size: 11px;
   color: var(--accent);
+  text-shadow: 0 1px 6px #100e18;
   margin-bottom: 4px;
 }
 .panel-info strong {
-  font: 400 clamp(18px, 2.1vw, 32px) / 1.2 var(--display);
+  font: 400 clamp(1.125rem, 2.1vw, 2rem) / 1.2 var(--display);
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -327,7 +329,7 @@ h2 em {
   min-height: 58px;
   font-size: 13px;
   font-weight: 700;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control);
   background: transparent;
   transition:
     transform 0.2s,
@@ -349,7 +351,7 @@ h2 em {
   transform: translateY(-2px);
 }
 .quiz-note {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted);
   max-width: 120px;
   line-height: 1.9;
@@ -365,9 +367,10 @@ h2 em {
   border-top: 1px solid var(--line);
   padding: 17px 0;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1.7px;
+  flex-wrap: wrap;
 }
 .hero-foot b {
   color: var(--orange);
@@ -450,7 +453,7 @@ h2 em {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: 11px;
   transform: translateY(65px);
   transition: transform 0.3s;
 }
@@ -467,7 +470,7 @@ h2 em {
   justify-content: space-between;
   gap: 8px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin: 18px 0 8px;
@@ -480,6 +483,15 @@ h2 em {
   font-size: 11px;
   margin-top: 5px;
   color: var(--accent);
+}
+.card-style span {
+  color: var(--muted);
+}
+.card-hook {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 10px;
 }
 .about {
   border-top: 1px solid var(--line);
@@ -560,7 +572,7 @@ h2 em {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 1px;
 }
 .site-footer > span:nth-child(2) {
@@ -571,7 +583,7 @@ h2 em {
   background: none;
   border: 0;
   padding: 5px 0;
-  font-size: 10px;
+  font-size: 11px;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -644,7 +656,7 @@ dialog::backdrop {
   place-items: center;
   font: 300 29px/1 var(--body);
   background: none;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control);
   flex-shrink: 0;
 }
 .close-button:hover {
@@ -700,7 +712,7 @@ dialog::backdrop {
   min-height: 66px;
   gap: 16px;
   padding: 13px 17px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control);
   cursor: pointer;
   transition:
     background 0.25s,
@@ -732,7 +744,7 @@ dialog::backdrop {
   place-items: center;
   width: 28px;
   height: 28px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control);
   font-size: 11px;
   flex-shrink: 0;
   transition: background 0.2s;
@@ -762,7 +774,7 @@ dialog::backdrop {
   transform: none;
 }
 .quiz-actions .selection-hint {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted);
 }
 .quiz-art {
@@ -795,7 +807,7 @@ dialog::backdrop {
   right: 30px;
 }
 .quiz-art-caption .eyebrow {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--gold);
 }
 .quiz-art-caption p {
@@ -807,7 +819,7 @@ dialog::backdrop {
   display: block;
   color: var(--muted);
   margin-top: 15px;
-  font-size: 10px;
+  font-size: 11px;
 }
 .quiz-art-marker {
   position: absolute;
@@ -899,9 +911,9 @@ dialog::backdrop {
   margin-top: 20px;
 }
 .traits span {
-  border: 1px solid #ffffff36;
+  border: 1px solid var(--control);
   border-radius: 50px;
-  font-size: 9px;
+  font-size: 11px;
   padding: 4px 13px;
   letter-spacing: 0.7px;
   text-transform: uppercase;
@@ -919,14 +931,14 @@ dialog::backdrop {
   color: var(--canvas);
 }
 .reveal-actions .text-button {
-  border-color: #ffffff45;
+  border-color: var(--control);
 }
 .reveal-actions .text-button span {
   color: var(--accent);
 }
 .trailer-source {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   margin-top: 12px;
 }
 .film-story {
@@ -961,7 +973,7 @@ dialog::backdrop {
   font-size: 15px;
 }
 .story-source {
-  font-size: 10px;
+  font-size: 11px;
   text-decoration: underline;
   text-underline-offset: 5px;
 }
@@ -984,7 +996,7 @@ dialog::backdrop {
 }
 .film-info dt {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -1031,7 +1043,7 @@ dialog::backdrop {
   align-items: center;
 }
 .film-credit {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--muted);
   max-width: 400px;
 }
@@ -1086,14 +1098,14 @@ dialog::backdrop {
   margin-bottom: 8px;
 }
 .credit-item a {
-  font-size: 10px;
+  font-size: 11px;
   display: inline-block;
   margin-right: 20px;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .credits-dialog .credit-fine {
-  font-size: 10px;
+  font-size: 11px;
   margin-top: 20px;
   margin-bottom: 0;
 }
@@ -1152,7 +1164,7 @@ dialog::backdrop {
     display: none;
   }
   .hero h1 {
-    font-size: 9.35vw;
+    font-size: clamp(3rem, 9.35vw, 7rem);
   }
   .hero-bottom {
     gap: 18px;
@@ -1197,7 +1209,7 @@ dialog::backdrop {
     font-size: 42px;
   }
   .answer-text {
-    font-size: 11px;
+    font-size: 12px;
   }
   .answer-choice {
     padding: 12px;
@@ -1222,7 +1234,8 @@ dialog::backdrop {
     gap: 15px;
   }
   .brand span {
-    font-size: 8px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
   }
   .brand svg {
     width: 30px;
@@ -1236,7 +1249,7 @@ dialog::backdrop {
   }
   .header-cta {
     padding: 9px 12px;
-    font-size: 10px;
+    font-size: 11px;
     gap: 16px;
   }
   .hero {
@@ -1246,14 +1259,14 @@ dialog::backdrop {
     padding: 23px 0 20px;
   }
   .hero-top .eyebrow {
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 1.1px;
   }
   .hero-edition {
     display: none;
   }
   .hero h1 {
-    font-size: 9.2vw;
+    font-size: clamp(2rem, 9.2vw, 4.5rem);
     margin-bottom: 23px;
     line-height: 1.13;
   }
@@ -1281,7 +1294,7 @@ dialog::backdrop {
     bottom: 15px;
   }
   .panel-info small {
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 1.3px;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
@@ -1308,7 +1321,7 @@ dialog::backdrop {
     min-height: 58px;
   }
   .hero-foot {
-    font-size: 7px;
+    font-size: 11px;
     letter-spacing: 0.5px;
     gap: 14px;
     line-height: 1.8;
@@ -1339,7 +1352,7 @@ dialog::backdrop {
     font-size: 12px;
   }
   .section-heading .eyebrow {
-    font-size: 9px;
+    font-size: 11px;
     margin-bottom: 15px;
   }
   .film-grid {
@@ -1358,11 +1371,11 @@ dialog::backdrop {
     font-size: 26px;
   }
   .card-meta {
-    font-size: 8px;
+    font-size: 11px;
     margin-top: 12px;
   }
   .card-style {
-    font-size: 10px;
+    font-size: 11px;
   }
   .card-action {
     display: none;
@@ -1401,22 +1414,22 @@ dialog::backdrop {
     padding-bottom: 70px;
   }
   .closing h2 {
-    font-size: 16vw;
+    font-size: clamp(2.75rem, 16vw, 5rem);
   }
   .closing .eyebrow {
-    font-size: 9px;
+    font-size: 11px;
   }
   .site-footer {
     padding: 24px 5%;
     flex-wrap: wrap;
     gap: 15px;
-    font-size: 8px;
+    font-size: 11px;
   }
   .site-footer > span:first-child {
     width: 100%;
   }
   .site-footer .footer-link {
-    font-size: 9px;
+    font-size: 11px;
     margin-left: auto;
   }
   .experience-bar {
@@ -1424,11 +1437,11 @@ dialog::backdrop {
     margin: 0 5%;
   }
   .experience-bar .eyebrow {
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 1.4px;
   }
   .back-button {
-    font-size: 10px;
+    font-size: 12px;
     gap: 10px;
   }
   .close-button {
@@ -1479,7 +1492,7 @@ dialog::backdrop {
     padding-bottom: 8px;
   }
   .quiz-actions .selection-hint {
-    font-size: 9px;
+    font-size: 11px;
     max-width: 120px;
   }
   .quiz-actions .button {
@@ -1508,10 +1521,10 @@ dialog::backdrop {
     max-width: none;
   }
   .reveal-copy h2 {
-    font-size: 19vw;
+    font-size: clamp(3rem, 19vw, 5.5rem);
   }
   .reveal-copy > .eyebrow {
-    font-size: 9px;
+    font-size: 11px;
   }
   .reveal-film-title {
     font-size: 17px;
@@ -1530,7 +1543,7 @@ dialog::backdrop {
     gap: 30px;
   }
   .reveal-actions .text-button {
-    font-size: 10px;
+    font-size: 11px;
     gap: 14px;
   }
   .film-story {
@@ -1570,7 +1583,7 @@ dialog::backdrop {
     width: 100%;
   }
   .film-credit {
-    font-size: 9px;
+    font-size: 11px;
   }
   .credits-dialog {
     padding: 22px;
@@ -1587,7 +1600,8 @@ dialog::backdrop {
     gap: 8px;
   }
   .brand span {
-    font-size: 7px;
+    font-size: 10px;
+    letter-spacing: 0;
   }
   .film-panels {
     height: 270px;
@@ -1599,10 +1613,10 @@ dialog::backdrop {
     min-height: 65px;
   }
   .answer-text {
-    font-size: 11px;
+    font-size: 12px;
   }
   .reveal-actions .text-button {
-    font-size: 9px;
+    font-size: 11px;
   }
   .film-bottom-actions {
     gap: 15px;
@@ -1653,7 +1667,7 @@ dialog::backdrop {
     writing-mode: horizontal-tb;
     transform: none;
     margin-bottom: 6px;
-    font-size: 9px;
+    font-size: 11px;
   }
   .film-panel .panel-info strong {
     display: block;
@@ -1674,11 +1688,11 @@ dialog::backdrop {
   }
   .hero-film-tabs button {
     border: 0;
-    border-bottom: 2px solid var(--surface);
+    border-bottom: 2px solid var(--control);
     padding: 13px 2px;
     min-height: 48px;
     background: transparent;
-    font-size: 8px;
+    font-size: 11px;
     color: var(--muted);
   }
   .hero-film-tabs button[aria-pressed="true"] {
