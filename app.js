@@ -1,6 +1,6 @@
-import { films } from "./films.js?v=12";
-import { questions, matchFilm } from "./quiz.js?v=12";
-import { images } from "./assets/images/manifest.js?v=12";
+import { films } from "./films.js?v=13";
+import { questions, matchFilm } from "./quiz.js?v=13";
+import { images } from "./assets/images/manifest.js?v=13";
 
 /* Inline SVG icons so arrows render identically on every platform. */
 const icon = (name) =>
@@ -238,11 +238,20 @@ document.addEventListener("click", (event) => {
       });
     stage.querySelector("#story-title").focus({ preventScroll: true });
   } else if (button.hasAttribute("data-lineup")) {
+    const showLineup = () => {
+      document.querySelector("#films").scrollIntoView({
+        behavior: reducedMotion() ? "instant" : "smooth",
+      });
+      document
+        .querySelector(".film-card-button")
+        .focus({ preventScroll: true });
+    };
+    // Closing pops a history entry; the browser restores that entry's scroll
+    // position afterwards, so wait for the pop before scrolling.
+    const waitsForPop = pushedEntry;
     dialog.close();
-    document.querySelector("#films").scrollIntoView({
-      behavior: reducedMotion() ? "instant" : "smooth",
-    });
-    document.querySelector(".film-card-button").focus({ preventScroll: true });
+    if (waitsForPop) afterPop = showLineup;
+    else showLineup();
   } else if (button.id === "credits-open") {
     credits.showModal();
     lockPage();
@@ -255,6 +264,7 @@ document.addEventListener("click", (event) => {
 let writingHash = false;
 let pushedEntry = false;
 let closingFromRoute = false;
+let afterPop = null;
 function setHash(hash) {
   if (location.hash === hash) return;
   if (pushedEntry) {
@@ -286,6 +296,11 @@ function route() {
 window.addEventListener("hashchange", () => {
   if (writingHash) {
     writingHash = false;
+    if (afterPop) {
+      const action = afterPop;
+      afterPop = null;
+      requestAnimationFrame(action);
+    }
     return;
   }
   route();
