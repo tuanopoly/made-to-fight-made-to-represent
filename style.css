@@ -414,29 +414,41 @@ h2 em {
   color: var(--muted);
   padding-bottom: 7px;
 }
-.film-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 22px;
+/* Programme list: the hero already shows the five images, so the lineup reads as notes. */
+.film-list {
+  border-top: 1px solid var(--line);
 }
 .film-card {
-  min-width: 0;
+  border-bottom: 1px solid var(--line);
 }
 .film-card-button {
-  padding: 0;
+  padding: 26px 0;
   border: 0;
   background: none;
   text-align: left;
   width: 100%;
+  display: grid;
+  grid-template-columns: 56px 120px minmax(0, 1fr) auto;
+  gap: 0 32px;
+  align-items: center;
+  transition: background 0.25s;
 }
-.card-image {
-  height: clamp(210px, 25vw, 420px);
+.film-card-button:hover,
+.film-card-button:focus-visible {
+  background: linear-gradient(90deg, #ffffff08, transparent 70%);
+}
+.row-index {
+  font: 400 30px/1 var(--display);
+  color: var(--accent);
+}
+.row-image {
   display: block;
-  position: relative;
+  width: 120px;
+  height: 160px;
   overflow: hidden;
   background: var(--surface);
 }
-.card-image img {
+.row-image img {
   transition:
     transform 0.55s,
     filter 0.55s;
@@ -447,57 +459,53 @@ h2 em {
   transform: scale(1.045);
   filter: saturate(1);
 }
-.card-action {
-  position: absolute;
-  bottom: 14px;
-  left: 14px;
-  right: 14px;
-  background: var(--canvas);
-  padding: 10px 13px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 11px;
-  opacity: 0.72;
-  transition:
-    opacity 0.3s,
-    background 0.3s;
-}
-.film-card-button:hover .card-action,
-.film-card-button:focus-visible .card-action {
-  opacity: 1;
-}
-.card-action span {
-  font-size: 20px;
-  color: var(--accent);
+.row-text {
+  display: block;
+  max-width: 640px;
 }
 .card-meta {
   display: flex;
-  justify-content: space-between;
-  gap: 8px;
+  gap: 14px;
   color: var(--muted);
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin: 18px 0 8px;
+  margin-bottom: 8px;
 }
 .film-card h3 {
-  font: 400 clamp(22px, 2.1vw, 33px) / 1.25 var(--display);
+  font: 400 clamp(26px, 2.4vw, 40px) / 1.15 var(--display);
   text-transform: uppercase;
 }
 .card-style {
-  font-size: 11px;
-  margin-top: 5px;
+  font-size: 12px;
+  margin-top: 6px;
   color: var(--accent);
 }
 .card-style span {
   color: var(--muted);
 }
 .card-hook {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
   color: var(--muted);
   margin-top: 10px;
+}
+.row-action {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  white-space: nowrap;
+  color: var(--muted);
+  transition: color 0.25s;
+}
+.row-action span {
+  font-size: 22px;
+  color: var(--accent);
+}
+.film-card-button:hover .row-action,
+.film-card-button:focus-visible .row-action {
+  color: var(--white);
 }
 .about {
   border-top: 1px solid var(--line);
@@ -1173,8 +1181,13 @@ dialog::backdrop {
     padding-top: 80px;
     padding-bottom: 80px;
   }
-  .film-grid {
-    gap: 14px;
+  .film-card-button {
+    grid-template-columns: 44px 100px minmax(0, 1fr) auto;
+    gap: 0 22px;
+  }
+  .row-image {
+    width: 100px;
+    height: 134px;
   }
   .panel-info {
     left: 12px;
@@ -1336,30 +1349,40 @@ dialog::backdrop {
     font-size: 11px;
     margin-bottom: 15px;
   }
-  .film-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 30px 18px;
+  .film-card-button {
+    grid-template-columns: 88px minmax(0, 1fr);
+    grid-template-areas:
+      "image text"
+      "action action";
+    gap: 0 18px;
+    padding: 22px 0;
   }
-  .card-image {
-    height: 60vw;
-    max-height: 380px;
+  .row-index {
+    display: none;
   }
-  .film-card:last-child {
-    grid-column: 1/-1;
-    max-width: calc(50% - 9px);
+  .row-image {
+    grid-area: image;
+    width: 88px;
+    height: 118px;
+    align-self: start;
+  }
+  .row-text {
+    grid-area: text;
+  }
+  .row-action {
+    grid-area: action;
+    margin-top: 14px;
+    justify-content: space-between;
+    padding-left: 106px;
   }
   .film-card h3 {
     font-size: 26px;
   }
   .card-meta {
-    font-size: 11px;
-    margin-top: 12px;
+    margin-bottom: 6px;
   }
-  .card-style {
-    font-size: 11px;
-  }
-  .card-action {
-    display: none;
+  .card-hook {
+    font-size: 13px;
   }
   .about {
     display: block;

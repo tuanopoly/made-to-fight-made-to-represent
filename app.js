@@ -1,6 +1,6 @@
 import { films } from "./films.js?v=4";
 import { questions, matchFilm } from "./quiz.js?v=4";
-import { images } from "./assets/images/manifest.js?v=5";
+import { images } from "./assets/images/manifest.js?v=6";
 
 /* Build a responsive <img> from the WebP variants listed in the manifest. */
 function picture(name, sizes, attrs = "") {
@@ -40,8 +40,10 @@ document.querySelector("#film-grid").innerHTML = films
     (film, index) => `
   <article class="film-card" style="--accent:${film.accent}">
     <button class="film-card-button" data-film="${index}" aria-label="Explore ${film.title}, ${film.year}">
-      <span class="card-image">${picture(film.poster, "(max-width: 760px) 45vw, 18vw", `alt="${film.posterAlt}" loading="lazy"`)}<span class="card-action">Explore the film <span aria-hidden="true">↗</span></span></span>
-      <span class="card-meta"><span>${film.place}</span><span>${film.year}</span></span><h3>${film.title}</h3><p class="card-style">${film.styleDetail || film.style} <span>· ${film.theme}</span></p><p class="card-hook">${film.hook}</p>
+      <span class="row-index" aria-hidden="true">0${index + 1}</span>
+      <span class="row-image">${picture(film.poster, "(max-width: 760px) 88px, 120px", `alt="${film.posterAlt}" loading="lazy"`)}</span>
+      <span class="row-text"><span class="card-meta"><span>${film.place}</span><span>${film.year}</span></span><h3>${film.title}</h3><p class="card-style">${film.styleDetail || film.style} <span>· ${film.theme}</span></p><p class="card-hook">${film.hook}</p></span>
+      <span class="row-action">Open the film <span aria-hidden="true">↗</span></span>
     </button>
   </article>`,
   )
