@@ -2,7 +2,7 @@
 
 An interactive film-festival concept exploring Asian culture through screen combat. A three-question quiz matches visitors to one of five films, then opens a cinematic result with a short cultural story, a sourced official trailer link, and screening information.
 
-**[Open the live website](https://tuanopoly.github.io/made-to-fight/)**
+**[Open the live website](https://tuanopoly.github.io/made-to-fight-made-to-represent/)**
 
 ## Run locally
 
