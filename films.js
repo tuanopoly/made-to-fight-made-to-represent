@@ -15,6 +15,7 @@ export const films = [
     poster: "hero-poster.png",
     position: "50% 48%",
     alt: "Hero poster with Jet Li and Maggie Cheung in front of a field of spears.",
+    posterAlt: "Hero poster with Jet Li and Maggie Cheung in front of a field of spears.",
     traits: ["Grace", "Imagination", "Philosophy"],
     result:
       "You see a fight as something closer to poetry. You are drawn to impossible movement, striking images, and the ideas that linger after the action ends.",
@@ -47,6 +48,7 @@ export const films = [
     poster: "ipman-poster.jpg",
     position: "49% 50%",
     alt: "Donnie Yen as Ip Man holding a staff in a dimly lit industrial interior.",
+    posterAlt: "Ip Man poster with Donnie Yen standing alone in a ruined street.",
     traits: ["Precision", "Discipline", "Dignity"],
     result:
       "You are drawn to the quiet confidence of someone who knows exactly when to move. Precision and restraint matter to you as much as the impact of a strike.",
@@ -79,6 +81,7 @@ export const films = [
     poster: "rebel-poster.jpg",
     position: "52% 50%",
     alt: "Johnny Trí Nguyễn and Ngô Thanh Vân in a warm-toned still from The Rebel.",
+    posterAlt: "The Rebel poster with Johnny Trí Nguyễn and Ngô Thanh Vân above a crowd scene.",
     traits: ["Adaptability", "Conviction", "Resistance"],
     result:
       "You respond to quick thinking and movement that refuses to be contained. The Rebel turns that restless energy toward questions of belonging, conscience, and resistance.",
@@ -116,6 +119,7 @@ export const films = [
     poster: "protector-poster.jpg",
     position: "35% 50%",
     alt: "Tony Jaa kneeling with two long weapons in a red-lit interior in The Protector.",
+    posterAlt: "The Protector poster with Tony Jaa mid-strike above the Thai title.",
     traits: ["Intensity", "Commitment", "Heritage"],
     result:
       "You are drawn to raw power, physical intensity, and relentless movement. Discover how Muay Thai becomes more than spectacle — carrying Thai identity, heritage, and national pride.",
@@ -151,6 +155,7 @@ export const films = [
     poster: "assassins-still2.jpg",
     position: "49% 48%",
     alt: "A group of samurai standing together in a village in 13 Assassins.",
+    posterAlt: "A sword fight in a village street in 13 Assassins. Photo courtesy of Magnet Releasing.",
     traits: ["Strategy", "Loyalty", "Resolve"],
     result:
       "You are drawn to a plan, a shared purpose, and the resolve to see it through. For you, the most powerful confrontation is one where every choice carries a consequence.",

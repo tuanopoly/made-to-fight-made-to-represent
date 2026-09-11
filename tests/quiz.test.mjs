@@ -54,5 +54,6 @@ test("brief mappings and all result destinations are complete", () => {
     assert.equal(new URL(film.trailer).protocol, "https:");
     assert.equal(new URL(film.source).protocol, "https:");
     assert.ok(film.story.length >= 2 && film.result && film.credit);
+    assert.ok(film.posterAlt && film.hook && film.originalLang);
   }
 });

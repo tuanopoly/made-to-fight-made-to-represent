@@ -1,7 +1,15 @@
 import { films } from "./films.js";
 import { questions, matchFilm } from "./quiz.js";
+import { images } from "./assets/images/manifest.js";
 
-const imagePath = (name) => `./assets/images/${name}`;
+/* Build a responsive <img> from the WebP variants listed in the manifest. */
+function picture(name, sizes, attrs = "") {
+  const base = name.replace(/\.[^.]+$/, "");
+  const meta = images[base];
+  const file = (w) => `./assets/images/${base}-${w}.webp`;
+  const srcset = meta.widths.map((w) => `${file(w)} ${w}w`).join(", ");
+  return `<img src="${file(meta.widths[0])}" srcset="${srcset}" sizes="${sizes}" width="${meta.width}" height="${meta.height}" ${attrs}>`;
+}
 const dialog = document.querySelector("#experience");
 const stage = document.querySelector("#experience-content");
 const credits = document.querySelector("#credits");
@@ -14,7 +22,7 @@ document.querySelector("#film-panels").innerHTML = films
   .map(
     (film, index) => `
   <button class="film-panel ${index === 3 ? "is-featured" : ""}" data-film="${index}" style="--accent:${film.accent};--position:${film.position}" aria-label="Explore ${film.title}, ${film.place}">
-    <img src="${imagePath(film.image)}" alt="${film.alt}" fetchpriority="${index === 0 ? "high" : "auto"}">
+    ${picture(film.image, "(max-width: 760px) 90vw, 28vw", `alt="${film.alt}" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}`)}
     <span class="panel-info"><small>${film.place}</small><strong>${film.title}</strong><span class="panel-arrow" aria-hidden="true">↗</span></span>
   </button>`,
   )
@@ -32,7 +40,7 @@ document.querySelector("#film-grid").innerHTML = films
     (film, index) => `
   <article class="film-card" style="--accent:${film.accent}">
     <button class="film-card-button" data-film="${index}" aria-label="Explore ${film.title}, ${film.year}">
-      <span class="card-image"><img src="${imagePath(film.poster)}" alt="${film.title === "13 Assassins" ? "A sword fight in a village street in 13 Assassins. Photo courtesy of Magnet Releasing." : `${film.title} promotional poster.`}" loading="lazy"><span class="card-action">Explore the film <span aria-hidden="true">↗</span></span></span>
+      <span class="card-image">${picture(film.poster, "(max-width: 760px) 45vw, 18vw", `alt="${film.posterAlt}" loading="lazy"`)}<span class="card-action">Explore the film <span aria-hidden="true">↗</span></span></span>
       <span class="card-meta"><span>${film.place}</span><span>${film.year}</span></span><h3>${film.title}</h3><p class="card-style">${film.styleDetail || film.style} <span>· ${film.theme}</span></p><p class="card-hook">${film.hook}</p>
     </button>
   </article>`,
@@ -87,14 +95,14 @@ function renderQuestion() {
       <h2 id="question-title" tabindex="-1">${question.title}</h2><p class="quiz-cue">${question.cue}</p>
       <form id="quiz-form"><fieldset class="answer-options" aria-labelledby="question-title"><legend class="sr-only">Choose one answer</legend>
       ${question.answers.map((answer, index) => `<label class="answer-choice"><input type="radio" name="answer" value="${index}" ${answers[questionIndex] === index ? "checked" : ""} required><span class="answer-letter" aria-hidden="true">${String.fromCharCode(65 + index)}</span><span class="answer-text">${answer}</span></label>`).join("")}
-      </fieldset><div class="quiz-actions"><span class="selection-hint" aria-live="polite">${answers[questionIndex] === null ? "Choose what feels most like you." : "Your choice. Your instinct."}</span><button class="button primary" type="submit" ${answers[questionIndex] === null ? "disabled" : ""}>${questionIndex === 2 ? "Reveal my film" : "Continue"} <span aria-hidden="true">→</span></button></div></form>
-    </div><aside class="quiz-art" aria-hidden="true" style="--position:${artwork.position}"><img class="quiz-art-image" src="${imagePath(artwork.image)}" alt=""><span class="quiz-art-marker">0${questionIndex + 1}</span><div class="quiz-art-caption"><span class="eyebrow">${artwork.title} · ${artwork.year}</span><p>${["Trust the<br>first instinct.", "Feel the<br>movement.", "See beyond<br>the fight."][questionIndex]}</p><small>Three questions. A new way into cinema.</small></div></aside></div>`;
+      </fieldset><div class="quiz-actions"><span class="selection-hint" aria-live="polite">${answers[questionIndex] === null ? "Choose what feels most like you." : `Answer ${String.fromCharCode(65 + answers[questionIndex])} selected.`}</span><button class="button primary" type="submit" ${answers[questionIndex] === null ? "disabled" : ""}>${questionIndex === 2 ? "Reveal my film" : "Continue"} <span aria-hidden="true">→</span></button></div></form>
+    </div><aside class="quiz-art" aria-hidden="true" style="--position:${artwork.position}">${picture(artwork.image, "45vw", 'class="quiz-art-image" alt="" loading="lazy"')}<span class="quiz-art-marker">0${questionIndex + 1}</span><div class="quiz-art-caption"><span class="eyebrow">${artwork.title} · ${artwork.year}</span><p>${["Trust the<br>first instinct.", "Feel the<br>movement.", "See beyond<br>the fight."][questionIndex]}</p><small>Three questions. A new way into cinema.</small></div></aside></div>`;
 
   stage.querySelector("#quiz-form").addEventListener("change", (event) => {
     answers[questionIndex] = Number(event.target.value);
     stage.querySelector('[type="submit"]').disabled = false;
     stage.querySelector(".selection-hint").textContent =
-      "Your choice. Your instinct.";
+      `Answer ${String.fromCharCode(65 + answers[questionIndex])} selected.`;
   });
   stage.querySelector("#quiz-form").addEventListener("submit", (event) => {
     event.preventDefault();
@@ -124,7 +132,7 @@ function renderFilm(index, isResult = false) {
   stage.innerHTML = `
     <article class="film-view" style="--accent:${film.accent};--position:${film.position}" data-film-id="${film.id}">
       <div class="experience-bar"><button class="back-button" data-${isResult ? "edit-answers" : "close"}><span aria-hidden="true">←</span> ${isResult ? "Change my answers" : "Back to festival"}</button><span class="eyebrow">${isResult ? "Your film match" : "The selection"} · ${film.place}</span><button class="close-button" data-close aria-label="Close film details">×</button></div>
-      <div class="film-reveal"><img class="film-reveal-image" src="${imagePath(film.image)}" alt="${film.alt}"><div class="reveal-copy">
+      <div class="film-reveal">${picture(film.image, "100vw", `class="film-reveal-image" alt="${film.alt}"`)}<div class="reveal-copy">
         <span class="eyebrow">${isResult ? "Your fighting style is" : film.theme}</span><h2 tabindex="-1">${isResult ? film.style : film.title}</h2>
         <p class="reveal-film-title">${isResult ? film.title : film.styleDetail || film.style} <span>${film.year}</span></p><p class="film-original"><span lang="${film.originalLang}">${film.original}</span> &nbsp; / &nbsp; ${film.place}</p>
         <p class="reveal-description">${film.result}</p><div class="traits" aria-label="Themes">${film.traits.map((trait) => `<span>${trait}</span>`).join("")}</div>

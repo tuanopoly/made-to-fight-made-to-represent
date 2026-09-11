@@ -21,7 +21,7 @@ Open `http://127.0.0.1:4173`.
 - `app.js`: quiz state, dialogs, result rendering, and mobile film selection.
 - `style.css`: responsive layout, design tokens, type, and motion.
 - `index.html`: festival opening and editorial sections.
-- `assets/`: local film imagery and self-hosted fonts.
+- `assets/`: local film imagery and self-hosted fonts. Images are served as WebP variants listed in `assets/images/manifest.js`; `app.js` builds `srcset` from that manifest. To replace an image, regenerate its variants (any resizer that writes `<name>-<width>.webp`) and update the manifest entry.
 
 Each answer contributes one point to its associated film. The largest total wins. If all three choices differ, Question 1 breaks the tie. Changing an answer replaces the earlier choice; restarting clears the quiz.
 

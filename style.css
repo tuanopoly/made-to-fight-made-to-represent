@@ -151,6 +151,7 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-height: 44px;
 }
 .brand svg {
   width: 36px;
@@ -250,7 +251,7 @@ h2 em {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, #100e18eb 0%, transparent 65%);
+  background: linear-gradient(0deg, #100e18f5 0%, #100e1899 28%, transparent 65%);
   pointer-events: none;
 }
 .film-panel img {
@@ -365,7 +366,7 @@ h2 em {
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid var(--line);
-  padding: 17px 0;
+  padding: 6px 0;
   color: var(--muted);
   font-size: 11px;
   text-transform: uppercase;
@@ -381,6 +382,9 @@ h2 em {
   display: flex;
   gap: 14px;
   align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: flex-end;
 }
 .hero-foot a span {
   font-size: 18px;
@@ -454,12 +458,14 @@ h2 em {
   align-items: center;
   justify-content: space-between;
   font-size: 11px;
-  transform: translateY(65px);
-  transition: transform 0.3s;
+  opacity: 0.72;
+  transition:
+    opacity 0.3s,
+    background 0.3s;
 }
 .film-card-button:hover .card-action,
 .film-card-button:focus-visible .card-action {
-  transform: translateY(0);
+  opacity: 1;
 }
 .card-action span {
   font-size: 20px;
@@ -506,12 +512,6 @@ h2 em {
   flex-direction: column;
   justify-content: space-between;
   gap: 35px;
-}
-.asterisk {
-  font-size: 110px;
-  line-height: 1;
-  color: var(--orange);
-  font-family: Arial, sans-serif;
 }
 .about-content h2 {
   font: 400 clamp(45px, 5.4vw, 84px) / 1.1 var(--display);
@@ -1390,9 +1390,6 @@ dialog::backdrop {
   }
   .about-kicker .eyebrow {
     max-width: none;
-  }
-  .asterisk {
-    font-size: 42px;
   }
   .about-content h2 {
     font-size: 49px;
