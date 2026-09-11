@@ -1,6 +1,6 @@
-import { films } from "./films.js?v=10";
-import { questions, matchFilm } from "./quiz.js?v=10";
-import { images } from "./assets/images/manifest.js?v=10";
+import { films } from "./films.js?v=12";
+import { questions, matchFilm } from "./quiz.js?v=12";
+import { images } from "./assets/images/manifest.js?v=12";
 
 /* Inline SVG icons so arrows render identically on every platform. */
 const icon = (name) =>
@@ -134,11 +134,11 @@ function renderQuestion() {
     <div class="experience-bar"><button class="back-button" data-back><span aria-hidden="true">${icon("left")}</span> ${questionIndex === 0 ? "Back to festival" : "Previous question"}</button><span class="eyebrow">Question ${questionIndex + 1} of 3</span><button class="close-button" data-close aria-label="Close quiz">${icon("close")}</button></div>
     <div class="quiz-layout"><div class="quiz-copy">
       <div class="quiz-progress" aria-hidden="true">${questions.map((_, index) => `<span class="${index <= questionIndex ? "done" : ""}"></span>`).join("")}</div>
-      <h2 id="question-title" tabindex="-1">${question.title}</h2><p class="quiz-cue">${question.cue}</p>
+      <h2 id="question-title" tabindex="-1">${question.title}</h2>
       <form id="quiz-form"><fieldset class="answer-options" aria-labelledby="question-title"><legend class="sr-only">Choose one answer</legend>
       ${question.answers.map((answer, index) => `<label class="answer-choice"><input type="radio" name="answer" value="${index}" ${answers[questionIndex] === index ? "checked" : ""} required><span class="answer-letter" aria-hidden="true">${String.fromCharCode(65 + index)}</span><span class="answer-text">${answer}</span></label>`).join("")}
-      </fieldset><div class="quiz-actions"><span class="selection-hint" aria-live="polite">${answers[questionIndex] === null ? "Choose what feels most like you." : `Answer ${String.fromCharCode(65 + answers[questionIndex])} selected.`}</span><button class="button primary" type="submit" ${answers[questionIndex] === null ? "disabled" : ""}>${questionIndex === 2 ? "Reveal my film" : "Continue"} <span aria-hidden="true">${icon("right")}</span></button></div></form>
-    </div><aside class="quiz-art" aria-hidden="true" style="--position:${artwork.position}">${picture(artwork.image, "45vw", 'class="quiz-art-image" alt="" loading="lazy"')}<span class="quiz-art-marker">0${questionIndex + 1}</span><div class="quiz-art-caption"><span class="eyebrow">${artwork.title} · ${artwork.year}</span><p>${["Trust the<br>first instinct.", "Feel the<br>movement.", "See beyond<br>the fight."][questionIndex]}</p><small>Three questions. A new way into cinema.</small></div></aside></div>`;
+      </fieldset><div class="quiz-actions"><span class="selection-hint" aria-live="polite">${answers[questionIndex] === null ? "" : `Answer ${String.fromCharCode(65 + answers[questionIndex])} selected.`}</span><button class="button primary" type="submit" ${answers[questionIndex] === null ? "disabled" : ""}>${questionIndex === 2 ? "Reveal my film" : "Continue"} <span aria-hidden="true">${icon("right")}</span></button></div></form>
+    </div><aside class="quiz-art" aria-hidden="true" style="--position:${artwork.position}">${picture(artwork.image, "45vw", 'class="quiz-art-image" alt="" loading="lazy"')}<span class="quiz-art-marker">0${questionIndex + 1}</span><div class="quiz-art-caption"><span class="eyebrow">${artwork.place} · ${artwork.year}</span><p>${artwork.title}</p></div></aside></div>`;
 
   stage.querySelector("#quiz-form").addEventListener("change", (event) => {
     answers[questionIndex] = Number(event.target.value);
@@ -179,7 +179,7 @@ function renderFilm(index, isResult = false) {
         <p class="reveal-description">${film.result}</p><div class="traits" role="group" aria-label="Themes">${film.traits.map((trait) => `<span>${trait}</span>`).join("")}</div>
         <div class="reveal-actions"><a class="button primary" href="${film.trailer}" target="_blank" rel="noopener noreferrer" aria-label="Preview ${film.title} — official trailer, opens in a new tab">Preview film <span aria-hidden="true">${icon("ne")}</span></a><button class="text-button" data-story>Explore the combat style <span aria-hidden="true">${icon("down")}</span></button></div><p class="trailer-source">Official trailer · ${film.trailerSource} · Opens in a new tab</p>
       </div></div>
-      <section class="film-story" id="film-story" aria-labelledby="story-title"><div><span class="eyebrow">Beyond the fight / ${film.styleDetail || film.style}</span><h3 id="story-title" tabindex="-1">${film.storyTitle}</h3></div><div class="story-body">${film.story.map((paragraph) => `<p>${paragraph}</p>`).join("")}<a class="story-source" href="${film.source}" target="_blank" rel="noopener noreferrer">${film.sourceName} ${icon("ne")}</a></div></section>
+      <section class="film-story" id="film-story" aria-labelledby="story-title"><div><span class="eyebrow">${film.styleDetail || film.style} in the film</span><h3 id="story-title" tabindex="-1">${film.storyTitle}</h3></div><div class="story-body">${film.story.map((paragraph) => `<p>${paragraph}</p>`).join("")}<a class="story-source" href="${film.source}" target="_blank" rel="noopener noreferrer">${film.sourceName} ${icon("ne")}</a></div></section>
       <div class="film-info"><dl><div><dt>Directed by</dt><dd>${film.director}</dd></div><div><dt>Original release</dt><dd>${film.year} · ${film.place}</dd></div></dl><details class="screening"><summary>Festival screening details ${icon("plus")}</summary><p><strong>Dates and venue to be announced.</strong></p><p>This is a coursework festival concept. Screenings and ticket booking are not currently scheduled.</p></details></div>
       <div class="film-bottom"><p class="film-credit">${film.credit} <a href="${film.creditUrl}" target="_blank" rel="noopener noreferrer">View source ${icon("ne")}</a></p><div class="film-bottom-actions"><button class="text-button" data-start>${isResult ? "Retake the quiz" : "Find your film"} <span aria-hidden="true">${icon("ne")}</span></button><button class="text-button" data-lineup>All five films <span aria-hidden="true">${icon("right")}</span></button></div></div>
     </article>`;

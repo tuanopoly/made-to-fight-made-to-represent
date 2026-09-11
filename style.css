@@ -220,12 +220,6 @@ a .arrow {
   align-items: center;
   padding: 30px 0 24px;
 }
-.hero-edition {
-  font-size: 11px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
 .hero h1 {
   font: 400 clamp(4.375rem, 9.55vw, 10rem) / 1.04 var(--display);
   letter-spacing: -0.01em;
@@ -333,10 +327,7 @@ h2 em {
 }
 .hero-bottom p {
   margin-right: auto;
-  font-size: 16px;
-  line-height: 1.6;
-}
-.hero-bottom p span {
+  font-size: 15px;
   color: var(--muted);
 }
 .button {
@@ -368,16 +359,6 @@ h2 em {
 .button.primary:hover {
   background: #ff916e;
   transform: translateY(-2px);
-}
-.quiz-note {
-  font-size: 11px;
-  color: var(--muted);
-  max-width: 120px;
-  line-height: 1.9;
-}
-.quiz-note span {
-  color: var(--orange);
-  padding: 0 4px;
 }
 .hero-foot {
   display: flex;
@@ -578,9 +559,6 @@ h2 em {
   padding-top: 100px;
   padding-bottom: 100px;
 }
-.closing > .eyebrow {
-  color: var(--muted);
-}
 .closing h2 {
   font: 400 clamp(56px, 8vw, 130px) / 1.07 var(--display);
   margin: 30px 0;
@@ -715,12 +693,7 @@ dialog::backdrop {
   text-transform: uppercase;
   max-width: 680px;
   outline: 0;
-}
-.quiz-cue {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 16px;
-  margin-bottom: 27px;
+  margin-bottom: 30px;
 }
 .answer-options {
   border: 0;
@@ -837,12 +810,6 @@ dialog::backdrop {
   font: 400 clamp(32px, 4vw, 66px) / 1.13 var(--display);
   text-transform: uppercase;
   margin-top: 13px;
-}
-.quiz-art-caption small {
-  display: block;
-  color: var(--muted);
-  margin-top: 15px;
-  font-size: 11px;
 }
 .quiz-art-marker {
   position: absolute;
@@ -1184,9 +1151,6 @@ dialog::backdrop {
   }
 }
 @media (max-width: 1050px) {
-  .quiz-note {
-    display: none;
-  }
   .hero h1 {
     font-size: clamp(3rem, 9.35vw, 7rem);
   }
@@ -1287,9 +1251,6 @@ dialog::backdrop {
     font-size: 11px;
     letter-spacing: 1.1px;
   }
-  .hero-edition {
-    display: none;
-  }
   .hero h1 {
     font-size: clamp(2rem, 9.2vw, 4.5rem);
     margin-bottom: 23px;
@@ -1378,11 +1339,7 @@ dialog::backdrop {
     margin: 0 3px;
   }
   .hero-foot > a {
-    font-size: 0;
-    gap: 0;
-  }
-  .hero-foot > a span {
-    font-size: 20px;
+    display: none;
   }
   .section-wrap {
     padding: 70px 5%;
@@ -1518,11 +1475,6 @@ dialog::backdrop {
   }
   .quiz-progress {
     margin-bottom: 26px;
-  }
-  .quiz-cue {
-    font-size: 11px;
-    margin-top: 14px;
-    margin-bottom: 24px;
   }
   .answer-choice {
     min-height: 67px;

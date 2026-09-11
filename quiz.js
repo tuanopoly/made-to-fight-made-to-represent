@@ -1,7 +1,6 @@
 export const questions = [
   {
     title: "What kind of fighter would you want to be?",
-    cue: "Follow your instinct.",
     answers: [
       "Graceful, poetic, and almost superhuman",
       "Calm, precise, and technically disciplined",
@@ -12,7 +11,6 @@ export const questions = [
   },
   {
     title: "What makes a fight scene exciting to you?",
-    cue: "Think of the scene you would watch twice.",
     answers: [
       "Beautiful movement and striking cinematography",
       "Technique, precision, and controlled movement",
@@ -23,7 +21,6 @@ export const questions = [
   },
   {
     title: "What do you want to discover behind the fight?",
-    cue: "There is always more to the movement.",
     answers: [
       "Myth, philosophy, and Chinese cultural symbolism",
       "Discipline, identity, and martial arts tradition",
