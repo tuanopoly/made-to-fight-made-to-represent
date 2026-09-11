@@ -68,12 +68,12 @@ export const images = {
     ]
   },
   "rebel-poster": {
-    "width": 1412,
+    "width": 1400,
     "height": 2048,
     "widths": [
       480,
       960,
-      1412
+      1400
     ]
   }
 };

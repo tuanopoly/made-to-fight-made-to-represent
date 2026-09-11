@@ -1,6 +1,6 @@
 import { films } from "./films.js?v=4";
 import { questions, matchFilm } from "./quiz.js?v=4";
-import { images } from "./assets/images/manifest.js?v=4";
+import { images } from "./assets/images/manifest.js?v=5";
 
 /* Build a responsive <img> from the WebP variants listed in the manifest. */
 function picture(name, sizes, attrs = "") {
