@@ -1,6 +1,6 @@
-import { films } from "./films.js?v=9";
-import { questions, matchFilm } from "./quiz.js?v=9";
-import { images } from "./assets/images/manifest.js?v=9";
+import { films } from "./films.js?v=10";
+import { questions, matchFilm } from "./quiz.js?v=10";
+import { images } from "./assets/images/manifest.js?v=10";
 
 /* Inline SVG icons so arrows render identically on every platform. */
 const icon = (name) =>

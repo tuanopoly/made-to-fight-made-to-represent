@@ -107,6 +107,12 @@ a:hover {
   background: var(--orange);
   color: var(--canvas);
 }
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
 .arrow {
   width: 1em;
   height: 1em;
