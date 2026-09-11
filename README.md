@@ -18,7 +18,7 @@ Open `http://127.0.0.1:4173`.
 
 - `films.js`: film metadata, cultural stories, trailer destinations, image references, and credits.
 - `quiz.js`: original quiz questions and scoring.
-- `app.js`: quiz state, dialogs, result rendering, and mobile film selection.
+- `app.js`: hash routing (`#quiz`, `#film/<id>`, `#result/<id>`), quiz state, the shared dialog stage, result rendering, responsive image markup, and the mobile film strip.
 - `style.css`: responsive layout, design tokens, type, and motion.
 - `index.html`: festival opening and editorial sections.
 - `assets/`: local film imagery and self-hosted fonts. Images are served as WebP variants listed in `assets/images/manifest.js`; `app.js` builds `srcset` from that manifest. To replace an image, regenerate its variants (any resizer that writes `<name>-<width>.webp`) and update the manifest entry.

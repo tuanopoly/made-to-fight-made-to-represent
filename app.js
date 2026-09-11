@@ -1,6 +1,6 @@
-import { films } from "./films.js?v=4";
-import { questions, matchFilm } from "./quiz.js?v=4";
-import { images } from "./assets/images/manifest.js?v=8";
+import { films } from "./films.js?v=9";
+import { questions, matchFilm } from "./quiz.js?v=9";
+import { images } from "./assets/images/manifest.js?v=9";
 
 /* Inline SVG icons so arrows render identically on every platform. */
 const icon = (name) =>
@@ -10,6 +10,7 @@ const icon = (name) =>
 function picture(name, sizes, attrs = "") {
   const base = name.replace(/\.[^.]+$/, "");
   const meta = images[base];
+  if (!meta) throw new Error(`No image variants listed for ${name}`);
   const file = (w) => `./assets/images/${base}-${w}.webp`;
   const srcset = meta.widths.map((w) => `${file(w)} ${w}w`).join(", ");
   return `<img src="${file(meta.widths[0])}" srcset="${srcset}" sizes="${sizes}" width="${meta.width}" height="${meta.height}" ${attrs}>`;
@@ -20,13 +21,12 @@ const credits = document.querySelector("#credits");
 let answers = [null, null, null];
 let questionIndex = 0;
 let mode = "quiz";
-let matchedIndex = null;
 
 document.querySelector("#film-panels").innerHTML = films
   .map(
     (film, index) => `
   <button class="film-panel ${index === 0 ? "is-featured" : ""}" data-film="${index}" style="--accent:${film.accent};--position:${film.position}" aria-label="Explore ${film.title}, ${film.place}">
-    ${picture(film.image, "(max-width: 760px) 90vw, 28vw", `alt="${film.alt}" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}`)}
+    ${picture(film.image, "(max-width: 760px) 90vw, 28vw", `alt="${film.alt}" ${index === 0 ? 'fetchpriority="high"' : index === 1 ? "" : 'loading="lazy"'}`)}
     <span class="panel-info"><small>${film.place}</small><strong>${film.title}</strong><span class="panel-arrow" aria-hidden="true">${icon("ne")}</span></span>
   </button>`,
   )
@@ -43,12 +43,12 @@ document.querySelector("#film-grid").innerHTML = films
   .map(
     (film, index) => `
   <article class="film-card" style="--accent:${film.accent}">
-    <button class="film-card-button" data-film="${index}" aria-label="Explore ${film.title}, ${film.year}">
+    <a class="film-card-button" href="#film/${film.id}" aria-labelledby="film-title-${film.id}" aria-describedby="film-hook-${film.id}">
       <span class="row-index" aria-hidden="true">0${index + 1}</span>
       <span class="row-image">${picture(film.poster, "(max-width: 760px) 88px, 120px", `alt="${film.posterAlt}" loading="lazy"`)}</span>
-      <span class="row-text"><span class="card-meta"><span>${film.place}</span><span>${film.year}</span></span><h3>${film.title}</h3><p class="card-style">${film.styleDetail || film.style} <span>· ${film.theme}</span></p><p class="card-hook">${film.hook}</p></span>
+      <span class="row-text"><span class="card-meta"><span>${film.place}</span><span>${film.year}</span></span><h3 id="film-title-${film.id}">${film.title}</h3><p class="card-style">${film.styleDetail || film.style} <span>· ${film.theme}</span></p><p class="card-hook" id="film-hook-${film.id}">${film.hook}</p></span>
       <span class="row-action">Open the film <span aria-hidden="true">${icon("ne")}</span></span>
-    </button>
+    </a>
   </article>`,
   )
   .join("");
@@ -116,7 +116,6 @@ function focusHeading() {
 function startQuiz() {
   answers = [null, null, null];
   questionIndex = 0;
-  matchedIndex = null;
   renderQuestion();
   showStage();
   focusHeading();
@@ -156,8 +155,7 @@ function renderQuestion() {
       dialog.scrollTo(0, 0);
       focusHeading();
     } else {
-      matchedIndex = matchFilm(answers);
-      renderFilm(matchedIndex, true);
+      renderFilm(matchFilm(answers), true);
       dialog.scrollTo(0, 0);
       focusHeading();
     }
@@ -178,7 +176,7 @@ function renderFilm(index, isResult = false) {
       <div class="film-reveal">${picture(film.image, "100vw", `class="film-reveal-image" alt="${film.alt}"`)}<div class="reveal-copy">
         <span class="eyebrow">${isResult ? "Your fighting style is" : film.theme}</span><h2 tabindex="-1">${isResult ? film.style : film.title}</h2>
         <p class="reveal-film-title">${isResult ? film.title : film.styleDetail || film.style} <span>${film.year}</span></p><p class="film-original"><span lang="${film.originalLang}">${film.original}</span> &nbsp; / &nbsp; ${film.place}</p>
-        <p class="reveal-description">${film.result}</p><div class="traits" aria-label="Themes">${film.traits.map((trait) => `<span>${trait}</span>`).join("")}</div>
+        <p class="reveal-description">${film.result}</p><div class="traits" role="group" aria-label="Themes">${film.traits.map((trait) => `<span>${trait}</span>`).join("")}</div>
         <div class="reveal-actions"><a class="button primary" href="${film.trailer}" target="_blank" rel="noopener noreferrer" aria-label="Preview ${film.title} — official trailer, opens in a new tab">Preview film <span aria-hidden="true">${icon("ne")}</span></a><button class="text-button" data-story>Explore the combat style <span aria-hidden="true">${icon("down")}</span></button></div><p class="trailer-source">Official trailer · ${film.trailerSource} · Opens in a new tab</p>
       </div></div>
       <section class="film-story" id="film-story" aria-labelledby="story-title"><div><span class="eyebrow">Beyond the fight / ${film.styleDetail || film.style}</span><h3 id="story-title" tabindex="-1">${film.storyTitle}</h3></div><div class="story-body">${film.story.map((paragraph) => `<p>${paragraph}</p>`).join("")}<a class="story-source" href="${film.source}" target="_blank" rel="noopener noreferrer">${film.sourceName} ${icon("ne")}</a></div></section>
@@ -188,6 +186,14 @@ function renderFilm(index, isResult = false) {
 }
 
 document.addEventListener("click", (event) => {
+  const row = event.target.closest("a.film-card-button");
+  if (row) {
+    event.preventDefault();
+    renderFilm(films.findIndex((film) => film.id === row.hash.slice(6)));
+    showStage();
+    focusHeading();
+    return;
+  }
   const button = event.target.closest("button");
   if (!button) return;
   if (button.hasAttribute("data-start")) startQuiz();
@@ -233,7 +239,9 @@ document.addEventListener("click", (event) => {
     stage.querySelector("#story-title").focus({ preventScroll: true });
   } else if (button.hasAttribute("data-lineup")) {
     dialog.close();
-    document.querySelector("#films").scrollIntoView({ behavior: "smooth" });
+    document.querySelector("#films").scrollIntoView({
+      behavior: reducedMotion() ? "instant" : "smooth",
+    });
     document.querySelector(".film-card-button").focus({ preventScroll: true });
   } else if (button.id === "credits-open") {
     credits.showModal();
@@ -241,28 +249,39 @@ document.addEventListener("click", (event) => {
   } else if (button.hasAttribute("data-close-credits")) credits.close();
 });
 
-/* Hash routing: #quiz, #film/<id>, #result/<id>. Closing the stage clears the hash. */
+/* Hash routing: #quiz, #film/<id>, #result/<id>.
+   Opening the stage pushes one history entry. Moving between views inside it
+   replaces that entry, and closing pops it, so Back and Close stay in step. */
 let writingHash = false;
+let pushedEntry = false;
+let closingFromRoute = false;
 function setHash(hash) {
   if (location.hash === hash) return;
-  writingHash = true;
-  location.hash = hash;
+  if (pushedEntry) {
+    history.replaceState(null, "", location.pathname + location.search + hash);
+  } else {
+    writingHash = true;
+    pushedEntry = true;
+    location.hash = hash;
+  }
 }
 function route() {
   const [kind, id] = location.hash.slice(1).split("/");
   const index = films.findIndex((film) => film.id === id);
   if (kind === "quiz") {
-    if (mode !== "quiz" || !dialog.open) startQuiz();
-  } else if (kind === "film" && index > -1) {
-    renderFilm(index);
+    if (answers[0] === null) return startQuiz();
+    if (mode !== "quiz") questionIndex = 0;
+    renderQuestion();
     showStage();
     focusHeading();
-  } else if (kind === "result" && index > -1) {
-    matchedIndex = index;
-    renderFilm(index, true);
+  } else if ((kind === "film" || kind === "result") && index > -1) {
+    renderFilm(index, kind === "result");
     showStage();
     focusHeading();
-  } else if (dialog.open) dialog.close();
+  } else if (dialog.open) {
+    closingFromRoute = true;
+    dialog.close();
+  }
 }
 window.addEventListener("hashchange", () => {
   if (writingHash) {
@@ -273,8 +292,18 @@ window.addEventListener("hashchange", () => {
 });
 dialog.addEventListener("close", () => {
   unlockPage();
-  if (/^#(quiz|film|result)/.test(location.hash))
+  if (closingFromRoute) {
+    closingFromRoute = false;
+    pushedEntry = false;
+    return;
+  }
+  if (pushedEntry) {
+    pushedEntry = false;
+    writingHash = true;
+    history.back();
+  } else if (/^#(quiz|film|result)/.test(location.hash)) {
     history.replaceState(null, "", location.pathname + location.search);
+  }
 });
 route();
 credits.addEventListener("close", unlockPage);

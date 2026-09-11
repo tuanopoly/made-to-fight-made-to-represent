@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { matchFilm } from "../quiz.js";
 import { films } from "../films.js";
+import { images } from "../assets/images/manifest.js";
 
 test("all 125 answer combinations follow majority or Question 1 tie-break", () => {
   for (let first = 0; first < 5; first++) {
@@ -55,5 +56,9 @@ test("brief mappings and all result destinations are complete", () => {
     assert.equal(new URL(film.source).protocol, "https:");
     assert.ok(film.story.length >= 2 && film.result && film.credit);
     assert.ok(film.posterAlt && film.hook && film.originalLang);
+    for (const name of [film.image, film.poster]) {
+      const entry = images[name.replace(/\.[^.]+$/, "")];
+      assert.ok(entry && entry.widths.length, `manifest entry for ${name}`);
+    }
   }
 });
