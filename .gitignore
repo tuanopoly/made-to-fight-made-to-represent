@@ -1,0 +1,12 @@
+node_modules/
+tmp/
+web.pdf
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+docs/design-tree.md
+docs/design-proposal.md
+docs/experience-brief.md
+docs/cultural-content-research.md

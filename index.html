@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17151d" />
+    <meta
+      name="description"
+      content="Five films. Five cultures. One instinct. Discover your film through an interactive journey into Asian martial arts cinema."
+    />
+    <meta property="og:title" content="Made to Fight, Made to Represent" />
+    <meta
+      property="og:description"
+      content="Follow your instinct. Find your film. An interactive celebration of Asian martial arts cinema."
+    />
+    <meta property="og:type" content="website" />
+    <title>Made to Fight, Made to Represent — A film experience</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="./assets/fonts/anton.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a
+        class="brand"
+        href="#"
+        aria-label="Made to Fight, Made to Represent — home"
+      >
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path
+            d="M8 8h9v32H8zm13 0h7v32h-7zm11 0h7v32h-7z"
+            fill="currentColor"
+          />
+          <path d="M3 37 44 8v6L3 43z" fill="var(--canvas)" />
+        </svg>
+        <span>MADE TO FIGHT<br />MADE TO REPRESENT</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#films">The films <span>05</span></a
+        ><a href="#about">The idea</a>
+      </nav>
+      <button class="header-cta" data-start>
+        Find your film <span aria-hidden="true">↗</span>
+      </button>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-top">
+          <span class="eyebrow"
+            ><i></i> An Asian martial arts film experience</span
+          ><span class="hero-edition">Culture through cinema</span>
+        </div>
+        <h1 id="hero-title">
+          <span>MADE TO FIGHT.</span><span>MADE TO <em>REPRESENT.</em></span>
+        </h1>
+        <div
+          class="film-panels"
+          id="film-panels"
+          aria-label="Explore the five featured films"
+        ></div>
+        <div
+          class="hero-film-tabs"
+          id="hero-film-tabs"
+          role="group"
+          aria-label="Choose a featured film"
+        ></div>
+        <div class="hero-bottom">
+          <p>
+            Every fight tells a story.<br /><span
+              >Find the one that speaks to you.</span
+            >
+          </p>
+          <button class="button primary" data-start>
+            Find your film <span aria-hidden="true">↗</span>
+          </button>
+          <span class="quiz-note"
+            >3 questions <span>·</span> Follow your instinct</span
+          >
+        </div>
+        <div class="hero-foot">
+          <span
+            >China <b>·</b> Hong Kong <b>·</b> Vietnam <b>·</b> Thailand
+            <b>·</b> Japan</span
+          ><a href="#films" aria-label="Scroll to the films"
+            >Explore below <span aria-hidden="true">↓</span></a
+          >
+        </div>
+      </section>
+
+      <section
+        class="selection section-wrap"
+        id="films"
+        aria-labelledby="selection-title"
+      >
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">The selection</span>
+            <h2 id="selection-title">
+              FIVE WAYS<br />TO <em>FEEL THE FIGHT.</em>
+            </h2>
+          </div>
+          <p>
+            From the poetry of a flying sword to the force of a single strike.
+            Explore the films, and the worlds they carry.
+          </p>
+        </div>
+        <div class="film-grid" id="film-grid"></div>
+      </section>
+
+      <section
+        class="about section-wrap"
+        id="about"
+        aria-labelledby="about-title"
+      >
+        <div class="about-kicker">
+          <span class="eyebrow">Beyond the spectacle</span
+          ><span class="asterisk" aria-hidden="true">✳</span>
+        </div>
+        <div class="about-content">
+          <h2 id="about-title">
+            THE MOVEMENT<br />IS ONLY<br /><em>THE BEGINNING.</em>
+          </h2>
+          <div class="about-copy">
+            <p>
+              A fist, a blade, a body in motion. On screen, each can carry a
+              story about who we are, where we come from, and what we stand for.
+            </p>
+            <p>
+              Made to Fight, Made to Represent brings together five films to
+              look beyond the choreography — into culture, identity, and the
+              ideas behind the action.
+            </p>
+            <button class="text-button" data-start>
+              Let your instinct lead the way <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing section-wrap" aria-labelledby="closing-title">
+        <span class="eyebrow">Your next film starts here</span>
+        <h2 id="closing-title">WHAT'S <em>YOUR</em><br />FIGHTING STYLE?</h2>
+        <button class="button primary" data-start>
+          Take the quiz <span aria-hidden="true">↗</span>
+        </button>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>MADE TO FIGHT, MADE TO REPRESENT</span
+      ><span>A coursework festival concept</span
+      ><button class="footer-link" id="credits-open">
+        Sources & credits <span aria-hidden="true">↗</span>
+      </button>
+    </footer>
+    <dialog
+      class="experience-dialog"
+      id="experience"
+      aria-label="Find your film"
+    >
+      <div id="experience-content"></div>
+    </dialog>
+    <dialog class="credits-dialog" id="credits" aria-labelledby="credits-title">
+      <div class="credits-top">
+        <h2 id="credits-title">Sources & credits</h2>
+        <button
+          class="close-button"
+          data-close-credits
+          aria-label="Close sources and credits"
+        >
+          ×
+        </button>
+      </div>
+      <p>
+        This independent coursework concept explores how films represent culture
+        through action. It is not an official festival or an affiliation with
+        the films’ producers.
+      </p>
+      <div id="credits-list"></div>
+      <p class="credit-fine">
+        Film imagery belongs to its respective rights holders. Sources are
+        credited; no ownership or open license is claimed. Film years refer to
+        original releases. Cultural stories offer interpretations of the films.
+      </p>
+      <p class="credit-fine">
+        Typography: Anton by Vernon Adams and Manrope by Mikhail Sharanda,
+        distributed under the SIL Open Font License.
+      </p>
+    </dialog>
+    <noscript
+      ><p class="noscript">
+        Enable JavaScript to take the quiz and explore the five films.
+      </p></noscript
+    >
+  </body>
+</html>
